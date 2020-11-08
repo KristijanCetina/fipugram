@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an login page</h1>
+    <h1>This is the login page</h1>
     <div class="container">
       <div class="row">
         <div class="col-sm"></div>
@@ -29,6 +29,10 @@
               />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <p class="forgot-password">
+              You don't have an account?
+              <router-link :to="{ name: 'Signup' }">sign up</router-link>
+            </p>
           </form>
         </div>
         <div class="col-sm"></div>
