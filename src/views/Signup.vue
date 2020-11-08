@@ -34,11 +34,14 @@
                 type="password"
                 class="form-control"
                 id="exampleInputPassword1"
-                placeholder="Password"
-              />
+                placeholder="Password"/>
+                
               <small id="passwordHelp" class="form-text text-muted"
-              >Please use strong password or even better, a password manager like
-              <a href="https://1password.com/" target="_blank">1Password</a></small>
+                >Please use strong password or even better, a password manager
+                like
+                <a href="https://1password.com/" target="_blank"
+                  >1Password</a
+                ></small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <p class="forgot-password">
