@@ -30,6 +30,9 @@
           <li class="nav-item">
             <router-link to="/signup">Registracija</router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/payment">Payment</router-link>
+          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input
@@ -44,8 +47,6 @@
     <router-view />
   </div>
 </template>
-
-// <li class="nav-item"><router-link to="/">Home</router-link></li>
 
 <style lang="scss">
 #app {
