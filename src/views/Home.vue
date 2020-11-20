@@ -1,16 +1,8 @@
 <template>
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-3">
-      <InstagramCard />
-    </div>
-    <div class="col-3">
-      <InstagramCard />
-    </div>
-    <div class="col-3">
-      <InstagramCard />
-    </div>
-    <div class="col-1"></div>
+  <div class="d-flex flex-wrap bd-highlight">
+    <div class="p-1 flex-grow-1 bd-highlight"><InstagramCard /></div>
+    <div class="p-2 flex-grow-1 bd-highlight"><InstagramCard /></div>
+    <div class="p-2 flex-grow-1 bd-highlight"><InstagramCard /></div>
   </div>
 </template>
 

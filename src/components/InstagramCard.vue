@@ -2,7 +2,7 @@
   <div class="card text-center">
     <div class="card-header">Author name</div>
     <div class="card-body p-0">
-      <img class="card-img-top" src="https://picsum.photos/640" />
+      <img class="card-img-top" src="https://picsum.photos/480" />
     </div>
     <div class="card-footer text-muted small">2 days ago</div>
   </div>
