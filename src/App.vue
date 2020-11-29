@@ -6,7 +6,7 @@
           src="@/assets/kclogo.png"
           height="40"
           class="d-inline-block align-top"
-          alt="Nas logotip kompanije koji prikazuje ronioca na dah kako zaranja"
+          alt="Nas logotip kompanije koji prikazuje nešto cool"
           loading="lazy"
         />
       </a>
