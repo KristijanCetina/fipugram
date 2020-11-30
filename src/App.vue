@@ -36,6 +36,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input
+            v-model="searchText"
             class="form-control mr-sm-2"
             type="search"
             placeholder="Pretraga"
@@ -44,9 +45,21 @@
         </form>
       </div>
     </nav>
+    {{searchText}}
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  name: "app",
+  data() {
+    return {
+      searchText: 'primjer 2',
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
