@@ -1,16 +1,16 @@
 <template>
   <div class="card text-center">
-    <div class="card-header">Author name: </div>
+    <div class="card-header">{{data.description}}</div>
     <div class="card-body p-0">
-      <img class="card-img-top" :src="sourceUrl" />
+      <img class="card-img-top" :src="data.url" />
     </div>
-    <div class="card-footer text-muted small">2 days ago</div>
+    <div class="card-footer text-muted small">{{data.time}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['sourceUrl'],
+  props: ['data'],
   name: "InstagramCard",
 };
 </script>
