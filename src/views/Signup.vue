@@ -62,9 +62,9 @@
 		</div>
 	</div>
 </template>
+
 <script>
 import { firebase } from "@/firebase";
-import func from "../../vue-temp/vue-editor-bridge";
 
 export default {
 	name: "Signup",
@@ -81,9 +81,7 @@ export default {
 				.auth()
 				.createUserWithEmailAndPassword(this.email, this.password)
 				.then(function () {
-          console.log("Uspješna registracija");
-          this.email = "";
-					this.password = "";
+					console.log("Uspješna registracija");
 				})
 				.catch(function (error) {
 					console.error("Došlo je do greške: ", error);

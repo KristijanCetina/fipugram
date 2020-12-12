@@ -15,5 +15,5 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export { 
-    firebase,
+    firebase
 };
