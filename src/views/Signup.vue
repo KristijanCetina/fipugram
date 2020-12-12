@@ -83,6 +83,11 @@ export default {
 				.then(function () {
 					console.log("Uspješna registracija");
 				})
+				.then(()=>{
+					this.fullName ="";
+					this.email ="";
+					this.password ="";
+				})
 				.catch(function (error) {
 					console.error("Došlo je do greške: ", error);
 					if (error.message) {
