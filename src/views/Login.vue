@@ -1,6 +1,6 @@
 <template>
 	<div class="about">
-		<h1>This is the login page</h1>
+		<h1>Sign in to kc-fipugram</h1>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm"></div>
@@ -31,7 +31,7 @@
 							/>
 						</div>
 						<button type="button" @click="login()" class="btn btn-primary">
-							Submit
+							Login
 						</button>
 						<p class="forgot-password">
 							You don't have an account?

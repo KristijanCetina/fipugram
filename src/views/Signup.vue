@@ -1,6 +1,6 @@
 <template>
 	<div class="about">
-		<h1>This is the login page</h1>
+		<h1>Create account</h1>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm"></div>
@@ -49,7 +49,7 @@
 							>
 						</div>
 						<button type="button" @click="signup()" class="btn btn-primary">
-							Submit
+							Register
 						</button>
 						<p class="forgot-password">
 							Already registered?
