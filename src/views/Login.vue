@@ -17,12 +17,14 @@
 								placeholder="Enter email"
 							/>
 							<small id="emailHelp" class="form-text text-muted"
-								>We'll never share your email with anyone else.</small>
+								>We'll never share your email with anyone else.</small
+							>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">Password</label>
 							<input
 								v-model="password"
+								v-on:keyup.enter="login()"
 								type="password"
 								class="form-control"
 								id="exampleInputPassword1"
@@ -33,9 +35,14 @@
 							Login
 						</button>
 						<div>
-						<button type="button" @click="loginWithGoogle()" class="btn btn-primary">
-							Login with Google
-						</button></div>
+							<button
+								type="button"
+								@click="loginWithGoogle()"
+								class="btn btn-primary"
+							>
+								Login with Google
+							</button>
+						</div>
 						<p class="forgot-password">
 							You don't have an account?
 							<router-link :to="{ name: 'Signup' }">sign up</router-link>
@@ -71,10 +78,25 @@ export default {
 					console.error(e);
 				});
 		},
-		loginWithGoogle(){
-			console.log("Login with google")
+		loginWithGoogle() {
+			console.log("Login with google");
 			const provider = new firebase.auth.GoogleAuthProvider();
-			fire
+			firebase
+				.auth()
+				.signInWithPopup(provider)
+				.then((result) => {
+					this.$router.replace({ name: "Home" });
+				})
+				.catch(function (error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// The email of the user's account used.
+					var email = error.email;
+					// The firebase.auth.AuthCredential type that was used.
+					var credential = error.credential;
+					// ...
+				});
 		},
 	},
 };
