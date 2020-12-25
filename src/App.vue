@@ -39,6 +39,12 @@
 						<a href="#" @click.prevent="logout()">Logout</a>
 					</li>
 				</ul>
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li v-if="store.currentUser" class="nav-item">
+						<p>Hello {{ store.userDisplayName }}</p>
+					</li>
+				</ul>
+
 				<form class="form-inline my-2 my-lg-0">
 					<input
 						v-model="store.searchTerm"
@@ -63,6 +69,11 @@ firebase.auth().onAuthStateChanged((user) => {
 	if (user) {
 		// User is signed in.
 		store.currentUser = user.email;
+		if (user.displayName) {
+			store.userDisplayName = user.displayName;
+		} else {
+			store.userDisplayName = user.email;
+		}
 	} else {
 		// No user is signed in.
 		store.currentUser = null;

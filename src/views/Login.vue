@@ -38,10 +38,10 @@
 							<button
 								type="button"
 								@click="loginWithGoogle()"
-								class="btn btn-primary"
-							>
+								class="btn btn-secondary">
 								Login with Google
 							</button>
+							
 						</div>
 						<p class="forgot-password">
 							You don't have an account?
@@ -101,5 +101,3 @@ export default {
 	},
 };
 </script>
-
-
