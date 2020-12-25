@@ -13,8 +13,7 @@
 								type="text"
 								class="form-control"
 								aria-describedby="fullNamelHelp"
-								placeholder="Enter your full name"
-							/>
+								placeholder="Enter your full name"/>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label>
