@@ -73,6 +73,8 @@ export default {
 		},
 		loginWithGoogle(){
 			console.log("Login with google")
+			const provider = new firebase.auth.GoogleAuthProvider();
+			fire
 		},
 	},
 };
