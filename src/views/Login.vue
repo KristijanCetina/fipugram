@@ -32,6 +32,10 @@
 						<button type="button" @click="login()" class="btn btn-primary">
 							Login
 						</button>
+						<div>
+						<button type="button" @click="loginWithGoogle()" class="btn btn-primary">
+							Login with Google
+						</button></div>
 						<p class="forgot-password">
 							You don't have an account?
 							<router-link :to="{ name: 'Signup' }">sign up</router-link>
@@ -66,6 +70,9 @@ export default {
 				.catch(function (e) {
 					console.error(e);
 				});
+		},
+		loginWithGoogle(){
+			console.log("Login with google")
 		},
 	},
 };
