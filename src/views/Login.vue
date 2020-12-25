@@ -35,13 +35,13 @@
 							Login
 						</button>
 						<div>
+							<p style="color:gray;">or you can</p>
 							<button
 								type="button"
 								@click="loginWithGoogle()"
 								class="btn btn-secondary">
 								Login with Google
 							</button>
-							
 						</div>
 						<p class="forgot-password">
 							You don't have an account?
@@ -86,6 +86,7 @@ export default {
 				.signInWithPopup(provider)
 				.then((result) => {
 					this.$router.replace({ name: "Home" });
+					store.token = result.credential.accessToken;
 				})
 				.catch(function (error) {
 					// Handle Errors here.
