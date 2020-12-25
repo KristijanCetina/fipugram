@@ -33,6 +33,7 @@
 							<label for="exampleInputPassword1">Password</label>
 							<input
 								v-model="password"
+								v-on:keyup.enter="signup()"
 								type="password"
 								class="form-control"
 								id="exampleInputPassword1"
