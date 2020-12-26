@@ -49,7 +49,7 @@
 							<router-link :to="{ name: 'Signup' }">sign up</router-link>
 						</p>
 						<div id="errorMsg" class="error text-danger"></div>
-						<!-- <div class="error text-danger">{{errorMessage}}</div> -->
+						<div class="error text-danger">{{ errorMessage }}</div>
 					</form>
 				</div>
 				<div class="col-sm"></div>
@@ -67,7 +67,7 @@ export default {
 		return {
 			email: "",
 			password: "",
-			// errorMessage:"",
+			errorMessage: "",
 		};
 	},
 	methods: {
@@ -89,12 +89,9 @@ export default {
 							});
 					}
 				})
-				.catch(function (e) {
-					console.error(e);
-					// var errorMessage = e.message;
+				.catch((e) => {
 					console.error(e.message);
-					const errMsg = document.getElementById('errorMsg');
-					errMsg.innerHTML = `${e.message}`
+					this.errorMessage = e.message;
 				});
 		},
 		loginWithGoogle() {
@@ -109,12 +106,12 @@ export default {
 				})
 				.catch(function (error) {
 					// Handle Errors here.
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					// The email of the user's account used.
-					var email = error.email;
-					// The firebase.auth.AuthCredential type that was used.
-					var credential = error.credential;
+					// var errorCode = error.code;
+					this.errorMessage = error.message;
+					// // The email of the user's account used.
+					// var email = error.email;
+					// // The firebase.auth.AuthCredential type that was used.
+					// var credential = error.credential;
 					// ...
 				});
 		},
