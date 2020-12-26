@@ -13,7 +13,8 @@
 								type="text"
 								class="form-control"
 								aria-describedby="fullNamelHelp"
-								placeholder="Enter your full name"/>
+								placeholder="Enter your full name"
+							/>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label>
@@ -83,16 +84,41 @@ export default {
 				.then(function () {
 					console.log("Uspješna registracija");
 				})
-				.then(()=>{
-					this.fullName ="";
-					this.email ="";
-					this.password ="";
+				.then((user) => {
+					firebase
+						.auth()
+						.currentUser.updateProfile({ displayName: this.fullName });
+					this.verifyEmail();
+				})
+				.then(() => {
+					this.fullName = "";
+					this.email = "";
+					this.password = "";
+					firebase
+						.auth()
+						.signOut()
+						.then(() => {
+							this.$router.push({ name: "Login" });
+						});
 				})
 				.catch(function (error) {
 					console.error("Došlo je do greške: ", error);
 					if (error.message) {
 						alert(error.message);
 					}
+				});
+		},
+		verifyEmail() {
+			firebase
+				.auth()
+				.currentUser.sendEmailVerification()
+				.then(function () {
+					// Verification email sent.
+					console.log("Verification email sent");
+				})
+				.catch(function (error) {
+					// Error occurred. Inspect error.code.
+					console.error("verifyError " + error);
 				});
 		},
 	},

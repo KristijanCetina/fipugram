@@ -69,6 +69,7 @@ firebase.auth().onAuthStateChanged((user) => {
 	if (user) {
 		// User is signed in.
 		store.currentUser = user.email;
+		console.log("emailVerified:" + user.emailVerified)
 		if (user.displayName) {
 			store.userDisplayName = user.displayName;
 		} else {

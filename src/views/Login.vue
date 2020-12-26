@@ -35,11 +35,12 @@
 							Login
 						</button>
 						<div>
-							<p style="color:gray;">or you can</p>
+							<p style="color: gray">or you can</p>
 							<button
 								type="button"
 								@click="loginWithGoogle()"
-								class="btn btn-secondary">
+								class="btn btn-secondary"
+							>
 								Login with Google
 							</button>
 						</div>
@@ -72,7 +73,17 @@ export default {
 				.auth()
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then((result) => {
-					this.$router.replace({ name: "Home" });
+					if (firebase.auth().currentUser.emailVerified) {
+						this.$router.replace({ name: "Home" });
+					} else {
+						console.log("email is not verified");
+						firebase
+							.auth()
+							.signOut()
+							.then(() => {
+								this.$router.push({ name: "Login" });
+							});
+					}
 				})
 				.catch(function (e) {
 					console.error(e);
