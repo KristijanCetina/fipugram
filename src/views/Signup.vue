@@ -98,6 +98,7 @@ export default {
 						.auth()
 						.signOut()
 						.then(() => {
+							alert("Potrebno je verificirati e-mail prije korištenja aplikacije pomoću poslanog linka.")
 							this.$router.push({ name: "Login" });
 						});
 				})

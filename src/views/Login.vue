@@ -48,6 +48,8 @@
 							You don't have an account?
 							<router-link :to="{ name: 'Signup' }">sign up</router-link>
 						</p>
+						<div id="errorMsg" class="error text-danger"></div>
+						<!-- <div class="error text-danger">{{errorMessage}}</div> -->
 					</form>
 				</div>
 				<div class="col-sm"></div>
@@ -57,6 +59,7 @@
 </template>
 
 <script>
+import store from "@/store";
 import { firebase } from "@/firebase";
 export default {
 	name: "login",
@@ -64,6 +67,7 @@ export default {
 		return {
 			email: "",
 			password: "",
+			// errorMessage:"",
 		};
 	},
 	methods: {
@@ -87,6 +91,10 @@ export default {
 				})
 				.catch(function (e) {
 					console.error(e);
+					// var errorMessage = e.message;
+					console.error(e.message);
+					const errMsg = document.getElementById('errorMsg');
+					errMsg.innerHTML = `${e.message}`
 				});
 		},
 		loginWithGoogle() {
@@ -97,7 +105,7 @@ export default {
 				.signInWithPopup(provider)
 				.then((result) => {
 					this.$router.replace({ name: "Home" });
-					store.token = result.credential.accessToken;
+					store.token = result.credential.accessToken; // mozda cu ga kasnije za nesto koristiti. za test neka ostane
 				})
 				.catch(function (error) {
 					// Handle Errors here.

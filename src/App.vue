@@ -36,7 +36,7 @@
 						<router-link to="/payment">Payment</router-link>
 					</li>
 					<li v-if="store.currentUser" class="nav-item">
-						<a href="#" @click.prevent="logout()">Logout</a>
+						<a style="color: gray" href="#" @click.prevent="logout()">Logout</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
