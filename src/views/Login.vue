@@ -3,8 +3,9 @@
 		<h1>Sign in to kc-fipugram</h1>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm"></div>
-				<div class="col-sm">
+				<div class="col-sm leftCol"></div>
+
+				<div class="col-sm" v-on:keyup.enter="login()">
 					<form>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label>
@@ -24,7 +25,6 @@
 							<label for="exampleInputPassword1">Password</label>
 							<input
 								v-model="password"
-								v-on:keyup.enter="login()"
 								type="password"
 								class="form-control"
 								id="exampleInputPassword1"
@@ -52,7 +52,9 @@
 						<div class="error text-danger">{{ errorMessage }}</div>
 					</form>
 				</div>
-				<div class="col-sm"></div>
+
+				<div class="col-sm rightCol"></div>
+				
 			</div>
 		</div>
 	</div>
