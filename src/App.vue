@@ -26,16 +26,16 @@
 					<li v-if="store.currentUser" class="nav-item">
 						<router-link to="/">Home</router-link>
 					</li>
-					<li v-if="!store.currentUser" class="nav-item">
+					<li v-show="!store.currentUser" class="nav-item">
 						<router-link to="/login">Prijava</router-link>
 					</li>
-					<li v-if="!store.currentUser" class="nav-item">
+					<li v-show="!store.currentUser" class="nav-item">
 						<router-link to="/signup">Registracija</router-link>
 					</li>
 					<li v-if="store.currentUser" class="nav-item">
 						<router-link to="/payment">Payment</router-link>
 					</li>
-					<li v-if="store.currentUser" class="nav-item">
+					<li v-show="store.currentUser" class="nav-item">
 						<a style="color: gray" href="#" @click.prevent="logout()">Logout</a>
 					</li>
 				</ul>
