@@ -48,13 +48,13 @@
 							You don't have an account?
 							<router-link :to="{ name: 'Signup' }">sign up</router-link>
 						</p>
-						<div id="errorMsg" class="error text-danger"></div>
-						<div class="error text-danger">{{ errorMessage }}</div>
+						<div v-show="errorMessage" class="alert alert-danger" role="alert">
+							{{ errorMessage }}
+						</div>
 					</form>
 				</div>
 
 				<div class="col-sm rightCol"></div>
-				
 			</div>
 		</div>
 	</div>
