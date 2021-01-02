@@ -1,6 +1,15 @@
 <template>
-	<div class="d-flex p-2 flex-wrap">
-		<InstagramCard v-for="card in filteredCards" :key="card.url" :info="card" />
+	<div>
+		<div class="d-flex p-2 flex-wrap">
+			<InstagramCard
+				v-for="card in filteredCards"
+				:key="card.url"
+				:info="card"
+			/>
+		</div>
+		<div class="footer">
+			<p>ovo je valjda na dnu</p>
+		</div>
 	</div>
 </template>
 
