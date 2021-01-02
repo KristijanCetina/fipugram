@@ -1,13 +1,6 @@
 <template>
-	<div class="d-flex flex-wrap bd-highlight">
-		<div class="p-2 flex-grow-2 bd-highlight">
-			<InstagramCard
-				v-for="card in filteredCards"
-				:key="card.url"
-				:info="card"
-			/>
-		</div>
-		<!-- <div class="p-5 bd-highlight flex-grow-4" ><InstagramCard v-for="card in cards" :key="card" :sourceUrl="card"/></div> -->
+	<div class="d-flex p-2 flex-wrap">
+		<InstagramCard v-for="card in filteredCards" :key="card.url" :info="card" />
 	</div>
 </template>
 
