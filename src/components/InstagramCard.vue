@@ -37,7 +37,7 @@ export default {
 }
 .card {
 	padding: 1pt;
-	max-width: 960px;
+	max-width: 940px;
 }
 
 // img {

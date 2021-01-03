@@ -62,7 +62,7 @@ export default {
 			method: "get",
 			url: "https://api.nasa.gov/planetary/apod",
 			params: {
-				count: "5",
+				count: "6",
 				api_key: `${VUE_APP_NASA_API_KEY}`,
 			},
 		});
