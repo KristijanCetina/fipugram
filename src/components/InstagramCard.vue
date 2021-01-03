@@ -2,10 +2,12 @@
 	<div class="card text-center">
 		<div class="card-header">{{ info.title }}</div>
 		<div class="card-body p-0">
-			<img class="card-img-top" :src="info.url" />
+			<a :href="info.hdurl" target="_blank"
+				><img class="card-img-top" :src="info.url"
+			/></a>
 		</div>
 		<div class="card-footer text-muted small">
-			{{ info.date  }}
+			{{ info.date | shortDate }}
 			<br />
 			{{ info.explanation }}
 		</div>
@@ -13,14 +15,14 @@
 </template>
 
 <script>
-import {format, parseISO} from 'date-fns';
+import { format, parseISO } from "date-fns";
 export default {
 	props: ["info"],
-  name: "InstagramCard",
-  
-  filters: {
+	name: "InstagramCard",
+
+	filters: {
 		shortDate: function (value) {
-			return format(value, parseISO('dd.MM.yyyy'));
+			return format(parseISO(value), "d.M.yyyy");
 		},
 	},
 };
@@ -35,6 +37,7 @@ export default {
 }
 .card {
 	padding: 1pt;
+	max-width: 960px;
 }
 
 // img {
