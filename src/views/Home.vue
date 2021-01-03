@@ -24,7 +24,7 @@ import store from "@/store";
 //import {format, parseISO} from 'date-fns'
 import { displayDateFormat } from "date-fns";
 import * as axios from "axios";
-import { VUE_APP_NASA_API_KEY } from '@/config.js'
+import { VUE_APP_NASA_API_KEY } from "@/config.js";
 
 let cards = [];
 
@@ -57,7 +57,7 @@ export default {
 	methods: {},
 	async created() {
 		console.log("kreirana instanca. dohvacam podatke");
-		
+
 		const response = await axios({
 			method: "get",
 			url: "https://api.nasa.gov/planetary/apod",
