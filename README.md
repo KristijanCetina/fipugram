@@ -11,3 +11,10 @@ Vue.js learning project
 ```bash
 npm install
 ```
+
+## Setup API keys
+
+```bash
+cp env.txt .env
+```
+and enter your API key
