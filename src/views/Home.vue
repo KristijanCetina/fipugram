@@ -57,20 +57,34 @@ export default {
 	methods: {},
 	async created() {
 		console.log("kreirana instanca. dohvacam podatke");
+		const parseList = (response) => {
+			if (response.status !== 200) throw Error(response.message);
+			if (!response.data) return [];
+			let list = response.data;
+			if (typeof list !== "object") {
+				list = [];
+			}
+			return list;
+		};
 
-		const response = await axios({
-			method: "get",
-			url: "https://api.nasa.gov/planetary/apod",
-			params: {
-				count: "6",
-				api_key: `${VUE_APP_NASA_API_KEY}`,
-			},
-		});
-		this.cards = response.data; //.map (c =>{c.date = format(c.date, parseISO('DD.MM.YYYY'))});
-		// console.log(response.data);
-		// console.log(cards);
-		// return this.cards;
+		try {
+			const response = await axios({
+				method: "get",
+				url: "https://api.nasa.gov/planetary/apod",
+				params: {
+					count: "6",
+					api_key: `${VUE_APP_NASA_API_KEY}`,
+				},
+			});
+			let data = parseList(response);
+			this.cards = data;
+			
+		} catch (error) {
+			console.error(error);
+			return [];
+		}
 	},
+
 	computed: {
 		filteredCards() {
 			let termin = this.store.searchTerm;
