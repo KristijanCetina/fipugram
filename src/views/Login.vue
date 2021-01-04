@@ -80,7 +80,8 @@ export default {
 				.signInWithEmailAndPassword(this.email, this.password)
 				.then((result) => {
 					if (firebase.auth().currentUser.emailVerified) {
-						this.$router.replace({ name: "Home" });
+						// this.$router.replace({ name: "Home" });
+						store.currentUser = firebase.auth().currentUser.email;
 					} else {
 						console.log("email is not verified");
 						firebase
@@ -103,7 +104,8 @@ export default {
 				.auth()
 				.signInWithPopup(provider)
 				.then((result) => {
-					this.$router.replace({ name: "Home" });
+					store.currentUser = result.additionalUserInfo.profile.email;
+					//this.$router.replace({ name: "Home" });
 					store.token = result.credential.accessToken; // mozda cu ga kasnije za nesto koristiti. za test neka ostane
 				})
 				.catch(function (error) {

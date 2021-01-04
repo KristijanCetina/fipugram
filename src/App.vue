@@ -66,10 +66,16 @@ import { firebase } from "@/firebase";
 import router from "@/router";
 
 firebase.auth().onAuthStateChanged((user) => {
+	const currentRoute = router.currentRoute;
 	if (user) {
 		// User is signed in.
 		store.currentUser = user.email;
-		console.log("emailVerified:" + user.emailVerified)
+		console.log("emailVerified:" + user.emailVerified);
+
+		if (!currentRoute.meta.requiredUser && user.emailVerified) {
+			router.push({ name: "Home" });
+		}
+
 		if (user.displayName) {
 			store.userDisplayName = user.displayName;
 		} else {
@@ -79,9 +85,10 @@ firebase.auth().onAuthStateChanged((user) => {
 		// No user is signed in.
 		store.currentUser = null;
 
-		if (router.name != "Login") {
+		if (currentRoute.meta.requiredUser) {
 			router.push({ name: "Login" });
 		}
+
 	}
 });
 
@@ -92,7 +99,7 @@ export default {
 			store,
 		};
 	},
-	
+
 	methods: {
 		logout() {
 			firebase
