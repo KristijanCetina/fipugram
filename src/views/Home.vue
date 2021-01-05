@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="d-flex p-2 flex-wrap">
+		<div class="d-flex p-2 flex-wrap justify-content-center">
 			<InstagramCard
 				v-for="card in filteredCards"
 				:key="card.url"
