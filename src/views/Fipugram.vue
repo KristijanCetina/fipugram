@@ -55,32 +55,32 @@ import store from "@/store";
 import { db } from "@/firebase";
 import { format, parseISO } from "date-fns";
 
-let cards = [
-  {
-    url: "https://picsum.photos/id/11/480",
-    title: "landscape",
-    explanation: "A long time ago...",
-    date: "2020-12-12",
-  },
-  {
-    url: "https://picsum.photos/id/22/480",
-    title: "Walking man. It's not Johnnie",
-    explanation: "in a galaxy far, far away...",
-    date: "2020-10-10",
-  },
-  {
-    url: "https://picsum.photos/id/33/480",
-    title: "green grass of home",
-    explanation: "A student tried to learn vue.js",
-    date: "2020-10-10",
-  },
-];
+// let cards = [
+//   {
+//     url: "https://picsum.photos/id/11/480",
+//     title: "landscape",
+//     explanation: "A long time ago...",
+//     date: "2020-12-12",
+//   },
+//   {
+//     url: "https://picsum.photos/id/22/480",
+//     title: "Walking man. It's not Johnnie",
+//     explanation: "in a galaxy far, far away...",
+//     date: "2020-10-10",
+//   },
+//   {
+//     url: "https://picsum.photos/id/33/480",
+//     title: "green grass of home",
+//     explanation: "A student tried to learn vue.js",
+//     date: "2020-10-10",
+//   },
+// ];
 
 export default {
   name: "Fipugram",
   data: function () {
     return {
-      cards,
+      cards: [],
       store,
       newImageUrl: "",
       newImageDescription: "",
@@ -89,6 +89,11 @@ export default {
   },
 
   methods: {
+    clearInputFields() {
+      this.newImageUrl = "";
+      this.newImageDescription = "";
+      this.errorMessage = "";
+    },
     postNewImage() {
       const imageURL = this.newImageUrl;
       const imageTitle = this.newImageDescription;
@@ -102,11 +107,8 @@ export default {
             posted_at: Date.now(),
           })
           .then((doc) => {
-			console.log("spremljen post");
-			// kako donje 3 linije prebaciti u zasebnu funkciju koju mogu pozvati kada god zelim ocistit input polja?
-            this.newImageUrl = "";
-            this.newImageDescription = "";
-            this.errorMessage = "";
+            console.log("spremljen post");
+            this.clearInputFields();
           })
           .catch((e) => {
             console.error(e.message);
@@ -116,9 +118,34 @@ export default {
         this.errorMessage = "Daj budi drug pa popuni sve podatke";
       }
     },
+    getPosts() {
+      let cards = [];
+      //... API/Firebase -> sve kartice -> cards
+      console.log("Loading posts");
+      db.collection("posts")
+        .orderBy("datetime", "desc")
+        .limit(10)
+        .get()
+        .then((results) => {
+          results.forEach((doc) => {
+            let id = doc.id;
+            let data = doc.data();
+            let card = {
+              id: doc.id,
+              url: data.url,
+              date: data.datetime,
+			  title: data.title,
+            };
+            this.cards.push(card);
+          });
+        });
+    },
   },
+
   async created() {
-    console.log("kreirana instanca. dohvacam podatke");
+    console.log("kreirana instanca fipugram. dohvacam podatke");
+	await this.getPosts(); //da li on uopće podrzava await???
+	console.log("Gotovo s loadnjem")
   },
 
   computed: {
