@@ -89,6 +89,11 @@ export default {
   },
 
   methods: {
+    clearInputFields() {
+      this.newImageUrl = "";
+      this.newImageDescription = "";
+      this.errorMessage = "";
+    },
     postNewImage() {
       const imageURL = this.newImageUrl;
       const imageTitle = this.newImageDescription;
@@ -102,11 +107,8 @@ export default {
             posted_at: Date.now(),
           })
           .then((doc) => {
-			console.log("spremljen post");
-			// kako donje 3 linije prebaciti u zasebnu funkciju koju mogu pozvati kada god zelim ocistit input polja?
-            this.newImageUrl = "";
-            this.newImageDescription = "";
-            this.errorMessage = "";
+            console.log("spremljen post");
+            this.clearInputFields();
           })
           .catch((e) => {
             console.error(e.message);
