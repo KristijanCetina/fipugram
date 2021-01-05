@@ -24,7 +24,10 @@
 			<div class="collapse navbar-collapse" id="navbarToggler">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 					<li v-if="store.currentUser" class="nav-item">
-						<router-link to="/">Home</router-link>
+						<router-link to="/">Fipugram</router-link>
+					</li>
+					<li v-if="store.currentUser" class="nav-item">
+						<router-link to="/apod">NASA-APOD</router-link>
 					</li>
 					<li v-show="!store.currentUser" class="nav-item">
 						<router-link to="/login">Prijava</router-link>
@@ -73,7 +76,7 @@ firebase.auth().onAuthStateChanged((user) => {
 		console.log("emailVerified:" + user.emailVerified);
 
 		if (!currentRoute.meta.requiredUser && user.emailVerified) {
-			router.push({ name: "Home" });
+			router.push({ name: "Fipugram" });
 		}
 
 		if (user.displayName) {

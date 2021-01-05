@@ -1,14 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Fipugram from '../views/Fipugram.vue'
 import store from "@/store";
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Fipugram',
+    component: Fipugram,
+    meta: {
+        requiredUser: true,
+    }
+},
+{
+    path: '/apod',
+    name: 'Apod',
+    component: () =>
+        import( /* webpackChunkName: "apod" */ '../views/Apod.vue'),
     meta: {
         requiredUser: true,
     }
