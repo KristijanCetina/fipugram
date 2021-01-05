@@ -7,7 +7,8 @@
 			/></a>
 		</div>
 		<div class="card-footer text-muted small">
-			{{ info.date | shortDate }}
+			{{ info.date }}
+			<!-- {{ info.date | shortDate }} -->
 			<br />
 			{{ info.explanation }}
 		</div>
