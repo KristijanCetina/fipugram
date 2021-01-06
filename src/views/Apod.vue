@@ -7,13 +7,6 @@
 				:info="card"
 			/>
 		</div>
-		<div class="footer text-muted">
-			<small
-				><a href="https://github.com/KristijanCetina/fipugram">
-					ovo je valjda na dnu</a
-				></small
-			>
-		</div>
 	</div>
 </template>
 
@@ -39,7 +32,6 @@ export default {
 	async created() {
 		console.log("kreirana instanca. dohvacam APOD podatke");
 		const parseList = (response) => {
-			console.log(response);
 			if (response.status !== 200) throw Error(response.message);
 			if (!response.data) return [];
 			let list = response.data;

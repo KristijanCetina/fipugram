@@ -38,13 +38,6 @@
         :info="card"
       />
     </div>
-    <div class="footer text-muted">
-      <small
-        ><a href="https://github.com/KristijanCetina/fipugram">
-          ovo je valjda na dnu</a
-        ></small
-      >
-    </div>
   </div>
 </template>
 
