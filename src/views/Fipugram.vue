@@ -34,7 +34,7 @@
     <div class="d-flex p-2 flex-wrap justify-content-center">
       <InstagramCard
         v-for="card in filteredCards"
-        :key="card.url"
+        :key="card.id"
         :info="card"
       />
     </div>
@@ -46,28 +46,6 @@
 import InstagramCard from "@/components/InstagramCard.vue";
 import store from "@/store";
 import { db } from "@/firebase";
-import { format, parseISO } from "date-fns";
-
-// let cards = [
-//   {
-//     url: "https://picsum.photos/id/11/480",
-//     title: "landscape",
-//     explanation: "A long time ago...",
-//     date: "2020-12-12",
-//   },
-//   {
-//     url: "https://picsum.photos/id/22/480",
-//     title: "Walking man. It's not Johnnie",
-//     explanation: "in a galaxy far, far away...",
-//     date: "2020-10-10",
-//   },
-//   {
-//     url: "https://picsum.photos/id/33/480",
-//     title: "green grass of home",
-//     explanation: "A student tried to learn vue.js",
-//     date: "2020-10-10",
-//   },
-// ];
 
 export default {
   name: "Fipugram",
@@ -96,12 +74,12 @@ export default {
             url: imageURL,
             title: imageTitle,
             email: store.currentUser,
-            datetime: Date(),
             posted_at: Date.now(),
           })
           .then((doc) => {
             console.log("spremljen post");
             this.clearInputFields();
+            this.getPosts();
           })
           .catch((e) => {
             console.error(e.message);
@@ -111,34 +89,37 @@ export default {
         this.errorMessage = "Daj budi drug pa popuni sve podatke";
       }
     },
-    getPosts() {
+    async getPosts() {
       let cards = [];
-      //... API/Firebase -> sve kartice -> cards
       console.log("Loading posts");
-      db.collection("posts")
-        .orderBy("datetime", "desc")
+      await db
+        .collection("posts")
+        .orderBy("posted_at", "desc")
         .limit(10)
         .get()
         .then((results) => {
+          this.cards = [];
           results.forEach((doc) => {
-            let id = doc.id;
-            let data = doc.data();
-            let card = {
-              id: doc.id,
+            const data = doc.data();
+            this.cards.push({
+              id: data.id,
               url: data.url,
-              date: data.datetime,
-			  title: data.title,
-            };
-            this.cards.push(card);
+              date: data.posted_at,
+              title: data.title,
+            });
           });
+        })
+        .catch((e) => {
+          console.error(e.message);
+          this.errorMessage = e.message;
         });
     },
   },
 
   async created() {
     console.log("kreirana instanca fipugram. dohvacam podatke");
-	await this.getPosts(); //da li on uopće podrzava await???
-	console.log("Gotovo s loadnjem")
+    await this.getPosts(); //da li on uopće podrzava await???
+    console.log("Gotovo s loadnjem");
   },
 
   computed: {
