@@ -60,13 +60,13 @@
       </div>
     </nav>
     <router-view />
-			<div class="footer text-muted">
-			<small
-				><a href="https://github.com/KristijanCetina/fipugram">
-					ovo je valjda na dnu</a
-				></small
-			>
-		</div>
+    <div class="footer text-muted">
+      <small
+        ><a href="https://github.com/KristijanCetina/fipugram">
+          ovo je valjda na dnu</a
+        ></small
+      >
+    </div>
   </div>
 </template>
 
@@ -75,7 +75,7 @@ import store from "@/store";
 import { firebase } from "@/firebase";
 import router from "@/router";
 
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(user => {
   const currentRoute = router.currentRoute;
   if (user) {
     // User is signed in.

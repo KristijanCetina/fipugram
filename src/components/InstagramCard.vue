@@ -21,17 +21,17 @@ export default {
   name: "InstagramCard",
 
   filters: {
-    timeAgo: function (value) {
+    timeAgo: function(value) {
       return moment(value).fromNow();
     },
-    shortDate: function (value) {
+    shortDate: function(value) {
       return moment(value).format("DD.MM.YYYY");
     },
   },
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .card-header,
 .card-footer,
 .card {

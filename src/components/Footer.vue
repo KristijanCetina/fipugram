@@ -1,18 +1,17 @@
 <template>
-    <div>
-        <p>verzija: {{GitHash}}</p>
-    </div>
+  <div>
+    <p>verzija: {{ GitHash }}</p>
+  </div>
 </template>
 
 <script>
-import GitHash from '@/hash.json';
+import GitHash from "@/hash.json";
 export default {
-    name: "Footer",
-    data()
-    {
-        return{
-            GitHash,
-        }
-    }
-}
+  name: "Footer",
+  data() {
+    return {
+      GitHash,
+    };
+  },
+};
 </script>

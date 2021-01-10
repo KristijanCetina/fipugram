@@ -49,7 +49,7 @@ import { db } from "@/firebase";
 
 export default {
   name: "Fipugram",
-  data: function () {
+  data: function() {
     return {
       cards: [],
       store,
@@ -76,12 +76,12 @@ export default {
             email: store.currentUser,
             posted_at: Date.now(),
           })
-          .then((doc) => {
+          .then(doc => {
             console.log("spremljen post");
             this.clearInputFields();
             this.getPosts();
           })
-          .catch((e) => {
+          .catch(e => {
             console.error(e.message);
             this.errorMessage = e.message;
           });
@@ -97,9 +97,9 @@ export default {
         .orderBy("posted_at", "desc")
         .limit(10)
         .get()
-        .then((results) => {
+        .then(results => {
           this.cards = [];
-          results.forEach((doc) => {
+          results.forEach(doc => {
             const data = doc.data();
             this.cards.push({
               id: data.id,
@@ -109,7 +109,7 @@ export default {
             });
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.error(e.message);
           this.errorMessage = e.message;
         });
@@ -125,7 +125,7 @@ export default {
   computed: {
     filteredCards() {
       let termin = this.store.searchTerm;
-      return this.cards.filter((card) =>
+      return this.cards.filter(card =>
         card.title.toLowerCase().includes(termin.toLowerCase())
       );
     },
