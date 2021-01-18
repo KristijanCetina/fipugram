@@ -14,7 +14,6 @@
 // @ is an alias to /src
 import InstagramCard from "@/components/InstagramCard.vue";
 import store from "@/store";
-import { displayDateFormat } from "date-fns";
 import * as axios from "axios";
 import { VUE_APP_NASA_API_KEY } from "@/config.js";
 
@@ -25,7 +24,7 @@ export default {
   data: function() {
     return {
       cards,
-      store,
+      store
     };
   },
   methods: {},
@@ -47,8 +46,8 @@ export default {
         url: "https://api.nasa.gov/planetary/apod",
         params: {
           count: "6",
-          api_key: `${VUE_APP_NASA_API_KEY}`,
-        },
+          api_key: `${VUE_APP_NASA_API_KEY}`
+        }
       });
       let data = parseList(response);
       this.cards = data;
@@ -64,10 +63,10 @@ export default {
       return this.cards.filter(card =>
         card.title.toLowerCase().includes(termin.toLowerCase())
       );
-    },
+    }
   },
   components: {
-    InstagramCard,
-  },
+    InstagramCard
+  }
 };
 </script>

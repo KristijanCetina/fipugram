@@ -38,6 +38,9 @@
           <li v-if="store.currentUser" class="nav-item">
             <router-link to="/payment">Payment</router-link>
           </li>
+          <li v-if="store.currentUser" class="nav-item">
+            <router-link to="/test">TS_test</router-link>
+          </li>
           <li v-show="store.currentUser" class="nav-item">
             <a style="color: gray" href="#" @click.prevent="logout()">Logout</a>
           </li>
