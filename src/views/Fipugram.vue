@@ -1,5 +1,14 @@
 <template>
   <div>
+    <input
+      type="checkbox"
+      id="showAllUsers"
+      v-model="showAllUsers"
+      true-value="true"
+      false-value="false"
+      @click="getPosts()"
+    />
+    <label for="showAllUsers">Show All Users</label>
     <!-- nova forma za post -->
     <form @submit.prevent="postNewImage" class=" mb-3 justify-content-center">
       <croppa
@@ -50,6 +59,7 @@ export default {
       imageReference: null,
       newImageDescription: "",
       errorMessage: "",
+      showAllUsers: false,
     };
   },
 
@@ -61,16 +71,13 @@ export default {
     },
     postNewImage() {
       this.imageReference.generateBlob((blobData) => {
-        console.log(blobData);
         const imageName = `posts/${store.currentUser}/${Date.now()}.png`;
-        // console.log(imageName);
         if (blobData != null) {
           storage
             .ref(imageName)
             .put(blobData)
             .then((result) => {
               result.ref.getDownloadURL().then((imageUrl) => {
-                console.log(imageUrl);
                 const imageTitle = this.newImageDescription;
                 if (imageUrl != "" && imageTitle != "") {
                   db.collection("posts")
@@ -103,10 +110,16 @@ export default {
     async getPosts() {
       let cards = [];
       console.log("Loading posts");
-      await db
+      let query = db
         .collection("posts")
         .orderBy("posted_at", "desc")
-        .limit(10)
+        .limit(10);
+
+      if (!showAllUsers.checked) {
+        query = query.where("email", "==", store.currentUser);
+      }
+
+      await query
         .get()
         .then((results) => {
           this.cards = [];
@@ -129,7 +142,7 @@ export default {
 
   async created() {
     console.log("kreirana instanca fipugram. dohvacam podatke");
-    await this.getPosts(); //da li on uopće podrzava await???
+    await this.getPosts();
     console.log("Gotovo s loadnjem");
   },
 
