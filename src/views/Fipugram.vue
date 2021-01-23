@@ -1,20 +1,14 @@
 <template>
   <div>
     <!-- nova forma za post -->
-    <form
-      @submit.prevent="postNewImage"
-      class="form-inline mb-3 justify-content-center"
-    >
-      <div class="form-group">
-        <label for="imageUrl">Image URL</label>
-        <input
-          v-model="newImageUrl"
-          type="text"
-          class="form-control ml-2"
-          placeholder="Enter the image URL"
-          id="imageUrl"
-        />
-      </div>
+    <form @submit.prevent="postNewImage" class=" mb-3 justify-content-center">
+      <croppa
+        :width="400"
+        :height="400"
+        placehoder="Dovuci sliku"
+        v-model="imageReference"
+      ></croppa>
+
       <div class="form-group">
         <label for="imageDescription">Description</label>
         <input
@@ -45,7 +39,7 @@
 // @ is an alias to /src
 import InstagramCard from "@/components/InstagramCard.vue";
 import store from "@/store";
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 
 export default {
   name: "Fipugram",
@@ -53,7 +47,7 @@ export default {
     return {
       cards: [],
       store,
-      newImageUrl: "",
+      imageReference: null,
       newImageDescription: "",
       errorMessage: "",
     };
@@ -61,33 +55,50 @@ export default {
 
   methods: {
     clearInputFields() {
-      this.newImageUrl = "";
+      this.imageReference.remove();
       this.newImageDescription = "";
       this.errorMessage = "";
     },
     postNewImage() {
-      const imageURL = this.newImageUrl;
-      const imageTitle = this.newImageDescription;
-      if (imageURL != "" && imageTitle != "") {
-        db.collection("posts")
-          .add({
-            url: imageURL,
-            title: imageTitle,
-            email: store.currentUser,
-            posted_at: Date.now(),
-          })
-          .then(doc => {
-            console.log("spremljen post");
-            this.clearInputFields();
-            this.getPosts();
-          })
-          .catch(e => {
-            console.error(e.message);
-            this.errorMessage = e.message;
-          });
-      } else {
-        this.errorMessage = "Daj budi drug pa popuni sve podatke";
-      }
+      this.imageReference.generateBlob((blobData) => {
+        console.log(blobData);
+        const imageName = `posts/${store.currentUser}/${Date.now()}.png`;
+        // console.log(imageName);
+        if (blobData != null) {
+          storage
+            .ref(imageName)
+            .put(blobData)
+            .then((result) => {
+              result.ref.getDownloadURL().then((imageUrl) => {
+                console.log(imageUrl);
+                const imageTitle = this.newImageDescription;
+                if (imageUrl != "" && imageTitle != "") {
+                  db.collection("posts")
+                    .add({
+                      url: imageUrl,
+                      title: imageTitle,
+                      email: store.currentUser,
+                      posted_at: Date.now(),
+                    })
+                    .then((doc) => {
+                      console.log("spremljen post");
+                      this.clearInputFields();
+                      this.getPosts();
+                    })
+                    .catch((e) => {
+                      console.error(e.message);
+                      this.errorMessage = e.message;
+                    });
+                } else {
+                  this.errorMessage = "Daj budi drug pa popuni sve podatke";
+                }
+              });
+            })
+            .catch((e) => {
+              console.error(e.errorMessage);
+            });
+        }
+      });
     },
     async getPosts() {
       let cards = [];
@@ -97,9 +108,9 @@ export default {
         .orderBy("posted_at", "desc")
         .limit(10)
         .get()
-        .then(results => {
+        .then((results) => {
           this.cards = [];
-          results.forEach(doc => {
+          results.forEach((doc) => {
             const data = doc.data();
             this.cards.push({
               id: data.id,
@@ -109,7 +120,7 @@ export default {
             });
           });
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e.message);
           this.errorMessage = e.message;
         });
@@ -125,7 +136,7 @@ export default {
   computed: {
     filteredCards() {
       let termin = this.store.searchTerm;
-      return this.cards.filter(card =>
+      return this.cards.filter((card) =>
         card.title.toLowerCase().includes(termin.toLowerCase())
       );
     },
