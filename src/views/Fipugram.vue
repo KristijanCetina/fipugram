@@ -99,7 +99,6 @@ export default {
                       console.log("spremljen post");
                       this.clearInputFields();
                       this.getPosts();
-                      store.pendingRequest = false;
                     })
                     .catch((e) => {
                       console.error(e.message);
@@ -112,6 +111,9 @@ export default {
             })
             .catch((e) => {
               console.error(e.errorMessage);
+            })
+            .finally(() => {
+              store.pendingRequest = false;
             });
         }
       });
@@ -150,9 +152,9 @@ export default {
   },
 
   async mounted() {
-    console.log("kreirana instanca fipugram. dohvacam podatke");
+    console.log("mounted fipugram. dohvacam podatke");
     await this.getPosts();
-    console.log("Gotovo s loadnjem");
+    console.log("Gotov mounted fipugram");
   },
 
   computed: {
