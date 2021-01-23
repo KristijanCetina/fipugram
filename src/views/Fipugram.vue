@@ -106,6 +106,7 @@ export default {
       await db
         .collection("posts")
         .orderBy("posted_at", "desc")
+        .where("email", "==", store.currentUser)
         .limit(10)
         .get()
         .then((results) => {
