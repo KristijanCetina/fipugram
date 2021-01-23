@@ -140,7 +140,7 @@ export default {
     },
   },
 
-  async created() {
+  async mounted() {
     console.log("kreirana instanca fipugram. dohvacam podatke");
     await this.getPosts();
     console.log("Gotovo s loadnjem");
