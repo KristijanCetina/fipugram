@@ -28,7 +28,14 @@
           id="imageDescription"
         />
       </div>
-      <button type="submit" class="btn btn-primary ml-2">Post image</button>
+      <button
+        id="buttonPost"
+        :disabled="store.pendingRequest"
+        type="submit"
+        class="btn btn-primary ml-2"
+      >
+        Post image
+      </button>
       <br />
       <div v-show="errorMessage" class="alert alert-danger" role="alert">
         {{ errorMessage }}
@@ -70,6 +77,7 @@ export default {
       this.errorMessage = "";
     },
     postNewImage() {
+      store.pendingRequest = true;
       this.imageReference.generateBlob((blobData) => {
         const imageName = `posts/${store.currentUser}/${Date.now()}.png`;
         if (blobData != null) {
@@ -91,6 +99,7 @@ export default {
                       console.log("spremljen post");
                       this.clearInputFields();
                       this.getPosts();
+                      store.pendingRequest = false;
                     })
                     .catch((e) => {
                       console.error(e.message);
@@ -113,7 +122,7 @@ export default {
       let query = db
         .collection("posts")
         .orderBy("posted_at", "desc")
-        .limit(10);
+        .limit(50);
 
       if (!showAllUsers.checked) {
         query = query.where("email", "==", store.currentUser);

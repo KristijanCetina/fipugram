@@ -1,5 +1,6 @@
-export default{
-    searchTerm: '',
-    currentUser: null,
-    userDisplayName: null,
-}
+export default {
+  searchTerm: "",
+  currentUser: null,
+  userDisplayName: null,
+  pendingRequest: false,
+};
