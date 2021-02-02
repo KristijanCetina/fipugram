@@ -77,47 +77,47 @@ export default {
       this.newImageDescription = "";
       this.errorMessage = "";
     },
-    postNewImage() {
-      this.pendingRequest = true;
-      this.imageReference.generateBlob((blobData) => {
-        const imageName = `posts/${store.currentUser}/${Date.now()}.png`;
-        if (blobData != null) {
-          storage
-            .ref(imageName)
-            .put(blobData)
-            .then((result) => {
-              result.ref.getDownloadURL().then((imageUrl) => {
-                const imageTitle = this.newImageDescription;
-                if (imageUrl != "" && imageTitle != "") {
-                  db.collection("posts")
-                    .add({
-                      url: imageUrl,
-                      title: imageTitle,
-                      email: store.currentUser,
-                      posted_at: Date.now(),
-                    })
-                    .then((doc) => {
-                      console.log("spremljen post");
-                      this.clearInputFields();
-                      this.getPosts();
-                    })
-                    .catch((e) => {
-                      console.error(e.message);
-                      this.errorMessage = e.message;
-                    });
-                } else {
-                  this.errorMessage = "Daj budi drug pa popuni sve podatke";
-                }
-              });
-            })
-            .catch((e) => {
-              console.error(e.errorMessage);
-            })
-            .finally(() => {
-              this.pendingRequest = false;
-            });
-        }
+    getImage() {
+      // Promise based, omotač oko callbacka
+      return new Promise((resolveFn, errorFn) => {
+        this.imageReference.generateBlob((data) => {
+          resolveFn(data);
+        });
       });
+    },
+    async postNewImage() {
+      try {
+        this.pendingRequest = true;
+        if (imageTitle != "") {
+          let blobData = await this.getImage();
+        } else {
+          this.errorMessage = "Budi drug i popuni sve podatke";
+          return;
+        }
+        let imageName =
+          "posts/" + store.currentUser + "/" + Date.now() + ".png";
+        let result = await storage.ref(imageName).put(blobData);
+        let url = await result.ref.getDownloadURL();
+        const imageTitle = this.newImageDescription;
+        if (imageUrl != "") {
+          let doc = await db.collection("posts").add({
+            url: imageUrl,
+            title: imageTitle,
+            email: store.currentUser,
+            posted_at: Date.now(),
+          });
+        } else {
+          this.errorMessage = "Budi drug i popuni sve podatke";
+          return;
+        }
+      } catch (e) {
+        console.error(e.errorMessage);
+        this.errorMessage = e.message;
+      } finally {
+        this.clearInputFields();
+        this.getPosts();
+        this.pendingRequest = false;
+      }
     },
     async getPosts() {
       let cards = [];
