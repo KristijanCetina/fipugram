@@ -30,7 +30,7 @@
       </div>
       <button
         id="buttonPost"
-        :disabled="store.pendingRequest"
+        :disabled="pendingRequest"
         type="submit"
         class="btn btn-primary ml-2"
       >
@@ -63,6 +63,7 @@ export default {
     return {
       cards: [],
       store,
+      pendingRequest: false,
       imageReference: null,
       newImageDescription: "",
       errorMessage: "",
@@ -77,7 +78,7 @@ export default {
       this.errorMessage = "";
     },
     postNewImage() {
-      store.pendingRequest = true;
+      this.pendingRequest = true;
       this.imageReference.generateBlob((blobData) => {
         const imageName = `posts/${store.currentUser}/${Date.now()}.png`;
         if (blobData != null) {
@@ -113,7 +114,7 @@ export default {
               console.error(e.errorMessage);
             })
             .finally(() => {
-              store.pendingRequest = false;
+              this.pendingRequest = false;
             });
         }
       });
